@@ -68,4 +68,6 @@ Rails.application.routes.draw do
 
   end
 
+  get "/debug_users", to: "application#debug_users"
+
 end

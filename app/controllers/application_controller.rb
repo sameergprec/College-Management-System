@@ -2,6 +2,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  def debug_users
+    render plain: "User count = #{User.count} | First user = #{User.first&.email}"
+  end
+
   protected
 
   def configure_permitted_parameters
