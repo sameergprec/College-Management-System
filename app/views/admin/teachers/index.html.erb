@@ -1,0 +1,36 @@
+<h2>All Teachers</h2>
+
+<%= link_to "New Teacher", new_admin_teacher_path, class: "btn btn-primary mb-3" %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID Number</th>
+      <th>Name</th>
+      <th>Date of Joining</th>
+      <th>Department</th>
+      <th>Qualifications</th>
+      <th>Specialization</th>
+      <th>User Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+        <td><%= teacher.id_number %></td>
+        <td><%= teacher.name %></td>
+        <td><%= teacher.doj.strftime("%d-%m-%Y") if teacher.doj %></td>
+        <td><%= teacher.department&.name %></td>
+        <td><%= teacher.qualifications %></td>
+        <td><%= teacher.specialization %></td>
+        <td><%= teacher.user&.email %></td>
+        <td>
+          <%= link_to "Show", admin_teacher_path(teacher), class: "btn btn-info btn-sm" %>
+          <%= link_to "Edit", edit_admin_teacher_path(teacher), class: "btn btn-warning btn-sm" %>
+          <%= button_to "Delete", admin_teacher_path(teacher), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

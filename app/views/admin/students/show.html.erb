@@ -1,0 +1,209 @@
+<div class="container mt-5">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+    <div>
+
+      <h2 class="fw-bold text-dark mb-1">
+        👨‍🎓 Student Profile
+      </h2>
+
+      <p class="text-muted mb-0">
+        Complete student academic information
+      </p>
+
+    </div>
+
+    <%= link_to "⬅ Back",
+        admin_department_students_path(@student.department_id),
+        class: "btn btn-outline-dark rounded-pill px-4 shadow-sm fw-semibold" %>
+
+  </div>
+
+  <!-- MAIN CARD -->
+  <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+    <!-- TOP SECTION -->
+    <div class="bg-dark text-white p-4">
+
+      <div class="row align-items-center">
+
+        <!-- PROFILE IMAGE -->
+        <div class="col-md-3 text-center mb-3 mb-md-0">
+
+          <% if @student.profile_picture.attached? %>
+
+            <%= image_tag @student.profile_picture.variant(resize_to_fill: [170,170]),
+                class: "rounded-circle border border-4 border-white shadow-lg" %>
+
+          <% else %>
+
+            <img src="https://ui-avatars.com/api/?name=<%= @student.name %>&background=0D8ABC&color=fff&size=170"
+                 class="rounded-circle border border-4 border-white shadow-lg">
+
+          <% end %>
+
+        </div>
+
+        <!-- BASIC INFO -->
+        <div class="col-md-9">
+
+          <h3 class="fw-bold mb-2">
+            <%= @student.name %>
+          </h3>
+
+          <div class="d-flex flex-wrap gap-2 mb-3">
+
+            <span class="badge bg-primary px-3 py-2">
+              🎓 <%= @student.roll_no %>
+            </span>
+
+            <span class="badge bg-success px-3 py-2">
+              Semester <%= @student.semester %>
+            </span>
+
+            <span class="badge bg-warning text-dark px-3 py-2">
+              Section <%= @student.section %>
+            </span>
+
+            <span class="badge bg-info text-dark px-3 py-2">
+              <%= @student.department&.code %>
+            </span>
+
+          </div>
+
+          <p class="mb-1">
+            <strong>Email:</strong>
+            <%= @student.user&.email %>
+          </p>
+
+          <p class="mb-0">
+            <strong>Course:</strong>
+            <%= @student.course %>
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- DETAILS SECTION -->
+    <div class="card-body p-4">
+
+      <div class="row g-4">
+
+        <!-- PERSONAL DETAILS -->
+        <div class="col-md-6">
+
+          <div class="card h-100 border-0 shadow-sm rounded-4">
+
+            <div class="card-header bg-primary text-white fw-bold rounded-top-4">
+              👤 Personal Information
+            </div>
+
+            <div class="card-body">
+
+              <table class="table table-borderless align-middle mb-0">
+
+                <tr>
+                  <th width="40%">Father Name</th>
+                  <td><%= @student.father_name %></td>
+                </tr>
+
+                <tr>
+                  <th>Mother Name</th>
+                  <td><%= @student.mother_name %></td>
+                </tr>
+
+                <tr>
+                  <th>Date of Birth</th>
+                  <td>
+                    <%= @student.dob.strftime("%d-%m-%Y") if @student.dob %>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th>Address</th>
+                  <td><%= @student.address %></td>
+                </tr>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ACADEMIC DETAILS -->
+        <div class="col-md-6">
+
+          <div class="card h-100 border-0 shadow-sm rounded-4">
+
+            <div class="card-header bg-dark text-white fw-bold rounded-top-4">
+              📚 Academic Information
+            </div>
+
+            <div class="card-body">
+
+              <table class="table table-borderless align-middle mb-0">
+
+                <tr>
+                  <th width="40%">Department</th>
+                  <td><%= @student.department&.name %></td>
+                </tr>
+
+                <tr>
+                  <th>Semester</th>
+                  <td><%= @student.semester %></td>
+                </tr>
+
+                <tr>
+                  <th>Section</th>
+                  <td><%= @student.section %></td>
+                </tr>
+
+                <tr>
+                  <th>Course</th>
+                  <td><%= @student.course %></td>
+                </tr>
+
+                <tr>
+                  <th>Scheme</th>
+                  <td><%= @student.scheme %></td>
+                </tr>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+
+  .table th {
+    color: #555;
+    font-weight: 600;
+  }
+
+  .table td {
+    color: #222;
+  }
+
+  .badge {
+    font-size: 0.85rem;
+  }
+
+</style>

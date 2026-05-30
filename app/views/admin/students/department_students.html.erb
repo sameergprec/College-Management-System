@@ -1,0 +1,275 @@
+<div class="container-fluid mt-1">
+
+  <!-- HEADER -->
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+
+    <div>
+      <h3 class="fw-bold text-primary mb-1">
+        🎓 Student Management Panel
+      </h3>
+
+      <p class="text-muted mb-0">
+        Manage and view student records
+      </p>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2">
+
+      <span class="badge rounded-pill bg-dark px-4 py-2 fs-6 shadow">
+        <%= params[:show] == "all" ? "🎓 ALL STUDENTS" : "🏛️ #{@department.code}" %>
+      </span>
+
+      <span class="badge rounded-pill bg-primary px-4 py-2 fs-6 shadow">
+        👨‍🎓 Total: <%= @students.count %>
+      </span>
+
+      <%= link_to "⬅ Back",
+      admin_students_path,
+      class: "btn btn-dark rounded-pill px-4 py-2 shadow fw-semibold" %>
+
+    </div>
+
+  </div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="d-flex flex-wrap gap-2 mb-4">
+
+    <%= link_to "👨‍🎓 All Students",
+        admin_department_students_path(
+          Department.first,
+          show: "all"
+        ),
+        class: "btn btn-dark rounded-pill shadow-sm px-4 fw-semibold" %>
+
+    <%= link_to "➕ Add Student",
+        new_admin_student_path,
+        class: "btn btn-success rounded-pill shadow-sm px-4" %>
+
+  </div>
+
+  <!-- FILTER -->
+  <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="card-body">
+
+      <%= form_with url: admin_department_students_path(@department),
+          method: :get,
+          local: true,
+          class: "row g-3 align-items-end" do %>
+
+        <% if params[:show] == "all" %>
+
+          <%= hidden_field_tag :show, "all" %>
+
+          <div class="col-md-3">
+
+            <%= label_tag :department_id,
+                "Department",
+                class: "form-label fw-semibold" %>
+
+            <%= select_tag :department_id,
+                options_from_collection_for_select(
+                  Department.all,
+                  :id,
+                  :code,
+                  params[:department_id]
+                ),
+                include_blank: "All Departments",
+                class: "form-select shadow-sm" %>
+
+          </div>
+
+        <% end %>
+
+        <div class="col-md-3">
+
+          <%= label_tag :semester,
+              "Semester",
+              class: "form-label fw-semibold" %>
+
+          <%= select_tag :semester,
+              options_for_select((1..8).to_a, params[:semester]),
+              include_blank: "All",
+              class: "form-select shadow-sm" %>
+
+        </div>
+
+        <div class="col-md-3">
+
+          <%= label_tag :section,
+              "Section",
+              class: "form-label fw-semibold" %>
+
+          <%= select_tag :section,
+              options_for_select(["A", "B", "C", "D"], params[:section]),
+              include_blank: "All",
+              class: "form-select shadow-sm" %>
+
+        </div>
+
+        <div class="col-md-3">
+
+          <%= submit_tag "🔍 Filter Students",
+              class: "btn btn-outline-primary w-100 fw-semibold shadow-sm" %>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-responsive shadow rounded-4">
+
+    <table class="table table-hover align-middle mb-0">
+
+      <thead class="table-dark">
+
+        <tr>
+
+          <th>#</th>
+
+          <th>Photo</th>
+
+          <th>Roll No</th>
+
+          <th>Name</th>
+
+          <% if params[:show] == "all" %>
+            <th>Department</th>
+          <% end %>
+
+          <th>Semester</th>
+
+          <th>Section</th>
+
+          <th>Course</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <% @students.each_with_index do |student, index| %>
+
+          <tr>
+
+            <td class="fw-bold">
+              <%= index + 1 %>
+            </td>
+
+            <td>
+
+              <% if student.profile_picture.attached? %>
+
+                <%= image_tag student.profile_picture.variant(resize_to_fill: [55, 55]),
+                    class: "rounded-circle border shadow-sm" %>
+
+              <% else %>
+
+                <img src="https://via.placeholder.com/55"
+                    class="rounded-circle border shadow-sm">
+
+              <% end %>
+
+            </td>
+
+            <td class="fw-semibold text-primary">
+              <%= student.roll_no %>
+            </td>
+
+            <td>
+              <%= student.name %>
+            </td>
+
+            <% if params[:show] == "all" %>
+
+              <td>
+                <span class="badge bg-dark">
+                  <%= student.department&.code %>
+                </span>
+              </td>
+
+            <% end %>
+
+            <td>
+              <span class="badge bg-info text-dark">
+                <%= student.semester %>
+              </span>
+            </td>
+
+            <td>
+              <span class="badge bg-secondary">
+                <%= student.section %>
+              </span>
+            </td>
+
+            <td>
+              <%= student.course %>
+            </td>
+
+            <td>
+
+              <div class="d-flex gap-1">
+
+                <%= link_to admin_student_path(student),
+                    class: "btn btn-sm btn-outline-info rounded-pill" do %>
+
+                  <i class="fas fa-eye"></i>
+
+                <% end %>
+
+                <%= link_to edit_admin_student_path(student),
+                    class: "btn btn-sm btn-outline-warning rounded-pill" do %>
+
+                  <i class="fas fa-pen"></i>
+
+                <% end %>
+
+                <%= button_to admin_student_path(student),
+                    method: :delete,
+                    data: { confirm: "Are you sure?" },
+                    class: "btn btn-sm btn-outline-danger rounded-pill" do %>
+
+                  <i class="fas fa-trash"></i>
+
+                <% end %>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+        <% end %>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<style>
+
+  table tbody tr:hover {
+    background: #f8fbff;
+    transition: 0.2s;
+  }
+
+  .table th {
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+
+  .rounded-circle {
+    object-fit: cover;
+  }
+
+</style>

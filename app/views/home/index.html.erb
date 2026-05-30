@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ROREC College</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .carousel-img {
+      height: 400px;
+      object-fit: cover;
+    }
+
+     .flip-card {
+      background-color: transparent;
+      perspective: 1000px;
+    }
+
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+    }
+
+    .flip-card-front {
+      background-color: #fff;
+    }
+
+    .flip-card-back {
+      background-color: #f8f9fa;
+      transform: rotateY(180deg);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .marquee-container {
+      width: 100%;
+      position: relative;
+    }
+
+    .marquee {
+      display: inline-flex;
+      animation: scroll-left 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes scroll-left {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!--Scrolling Notice Bar -->
+   <marquee scrollamount="10">
+        <div class="w-100 mt-5 p-3 d-flex align-items-center justify-content-between">
+          <div class="fw-semibold">
+            <span class="disco-text">
+              B.Tech I-Semester Apr/2026 Results Released. Login to check
+            </span>
+          </div>
+
+        </div>
+    </marquee>
+
+        <style>
+        .disco-text {
+          font-weight: 600;
+          animation: disco 1.2s infinite;
+        }
+
+        @keyframes disco {
+          0%   { color: black; }
+          25%  { color: pink; }
+          50%  { color: blue; }
+          75%  { color: green; }
+          100% { color: red; }
+        }
+        </style>
+
+<div class="container-fluid px-0">
+
+  <!-- ✅ College Images Slider (Top Center) -->
+  <div id="collegeCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="false">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://www.gprec.ac.in/wp-content/uploads/2019/07/gprec-banner1.jpg" class="d-block w-100 carousel-img" alt="Campus">
+      </div>
+      <div class="carousel-item active">
+        <img src="https://www.gprec.ac.in/wp-content/uploads/2019/07/gprec-banner3.jpg" class="d-block w-100 carousel-img" alt="Campus">
+      </div>
+      <div class="carousel-item">
+        <img src="https://plus.unsplash.com/premium_photo-1713296255442-e9338f42aad8?w=600&auto=format&fit=crop&q=60" class="d-block w-100 carousel-img" alt="Campus">
+      </div>
+      <div class="carousel-item">
+        <img src="https://www.gprec.ac.in/wp-content/uploads/2019/08/orange-1-1024x482@2x.jpg" class="d-block w-100 carousel-img" alt="Students">
+      </div>
+      <div class="carousel-item">
+        <img src="https://plus.unsplash.com/premium_photo-1680807988328-7ba28ad24d9f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fENvbGxlZ2V8ZW58MHx8MHx8fDA%3D" class="d-block w-100 carousel-img" alt="Campus">
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8Q29sbGVnZXxlbnwwfHwwfHx8MA%3D%3D" class="d-block w-100 carousel-img" alt="Students">
+      </div>
+      <div class="carousel-item">
+        <img src="https://images.unsplash.com/photo-1576495199011-eb94736d05d6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FtcHVzfGVufDB8fDB8fHww" class="d-block w-100 carousel-img" alt="Campus">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#collegeCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#collegeCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+
+  <!-- 🧱 Grid Sections (3 Cards per Row) -->
+  <div class="container py-5">
+    <div class="row g-4">
+
+      <!-- Row 1 -->
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-primary text-white fw-bold">📰 News / Circulars</div>
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <li>🗓️ Semester exams from April 25th</li>
+              <li>📢 Hackathon registrations open</li>
+              <li>🎓 Convocation on May 15</li>
+              <li>🗓️ Semester exams from April 25th</li>
+              <li>📢 Hackathon registrations open</li>
+              <li>🎓 Convocation on May 15</li>
+              <li>🗓️ Semester exams from April 25th</li>
+              <li>📢 Hackathon registrations open</li>
+              <li>🎓 Convocation on May 15</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-danger text-white fw-bold">📢 Examination Circulars</div>
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <li>📝 Hall ticket download available</li>
+              <li>📌 Practical exam dates announced</li>
+              <li>📝 Hall ticket download available</li>
+              <li>📌 Practical exam dates announced</li>
+              <li>📝 Hall ticket download available</li>
+              <li>📌 Practical exam dates announced</li>
+              <li>📝 Hall ticket download available</li>
+              <li>📌 Practical exam dates announced</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-warning text-dark fw-bold">📚 Academics</div>
+          <div class="card-body">
+            <ul>
+              <li>UG Courses: B.Tech (CSE, ECE, ME)</li>
+              <li>PG Courses: M.Tech, MBA</li>
+              <li>UG Courses: B.Tech (CSE, ECE, ME)</li>
+              <li>PG Courses: M.Tech, MBA</li>
+              <li>UG Courses: B.Tech (CSE, ECE, ME)</li>
+              <li>PG Courses: M.Tech, MBA</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-success text-white fw-bold">🧑‍🎓 Testimonials</div>
+          <div class="card-body">
+            <p>“ROREC shaped my career!”</p>
+            <small>- Aditi, CSE</small>
+            <p>“ROREC shaped my career!”</p>
+            <small>- Aditi, CSE</small>
+            <p>“ROREC shaped my career!”</p>
+            <small>- Aditi, CSE</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-info text-dark fw-bold">🏫 Admissions</div>
+          <div class="card-body">
+            <p>2025-26 Admissions Open!</p>
+            <a href="#" class="btn btn-sm btn-primary">Apply Now</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-secondary text-white fw-bold">📸 Campus Placements</div>
+          <div class="card-body">
+            <p>Top recruiters visit every year.</p>
+            <ul>
+              <li>TCS</li>
+              <li>Infosys</li>
+              <li>Capgemini</li>
+              <li>TCS</li>
+              <li>Infosys</li>
+              <li>Capgemini</li>
+              <li>TCS</li>
+              <li>Infosys</li>
+              <li>Capgemini</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 - EAA / Club Activities -->
+      <div class="col-md-4">
+        <div class="card h-100 bg-light shadow-sm">
+          <div class="card-header bg-dark text-white fw-bold">🎨 EAA / Club Activities</div>
+          <div class="card-body">
+            <ul>
+              <li>🎭 Cultural Fest</li>
+              <li>💻 Coding Club</li>
+              <li>⚽ Sports Events</li>
+              <li>🎭 Cultural Fest</li>
+              <li>💻 Coding Club</li>
+              <li>⚽ Sports Events</li>
+              <li>🎭 Cultural Fest</li>
+              <li>💻 Coding Club</li>
+              <li>⚽ Sports Events</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 🌟 Why Choose ROREC -->
+    <div class="mt-5">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white fw-bold fs-5">🌟 Why Choose ROREC?</div>
+        <div class="card-body">
+          <ul class="mb-0">
+            <li>🏆 NAAC Accredited</li>
+            <li>👨‍🏫 Highly Qualified Faculty</li>
+            <li>🏫 Smart Classrooms & Labs</li>
+            <li>💼 95% Placement Record</li>
+            <li>🤝 Industry Collaborations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- 📘 Academics Section -->
+    <div class="mt-5">
+      <h2 class="text-center fw-bold mb-4 text-primary">📘 Academics</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <% @departments.each do |department| %>
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <% image_url = case department.code
+                when "CIV"
+                  "https://images.unsplash.com/photo-1485083269755-a7b559a4fe5e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y2l2aWwlMjBlbmdpbmVlcmluZ3xlbnwwfHwwfHx8MA%3D%3D"
+                when "EEE"
+                  "https://media.istockphoto.com/id/1439482487/photo/electricity-transmission-towers-with-glowing-wires.jpg?s=612x612&w=0&k=20&c=rxBqHP9wkbioZsQq4EOkureE8LXwcS-wjNN8G8Qgeg0="
+                when "ECE"
+                  "https://media.istockphoto.com/id/147456329/photo/it-engineer-in-action-configuring-servers.jpg?s=612x612&w=0&k=20&c=k_4N3ILtJ6_zi0LobzutwfJSZOVmFDNWuantHl71ZcI="
+                when "MEC"
+                  "https://media.istockphoto.com/id/520977492/photo/engineering.jpg?s=612x612&w=0&k=20&c=HuUmWftBHNAi3bGBRzzIIR_aH1HaFAl1sr7M0KWUX9k="
+                when "CSB"
+                  "https://media.istockphoto.com/id/1979289147/photo/data-analysis-science-and-big-data-with-ai-technology-analyst-or-scientist-uses-a-computer.jpg?s=612x612&w=0&k=20&c=vmC-jVG6PNPRQtgtBp2y1caApEGYjt-fDrm0VzRgvK8="
+                when "AIM"
+                  "https://media.istockphoto.com/id/1703992257/photo/ai-chatbot-robot-concept.jpg?s=612x612&w=0&k=20&c=qZIH2r_N3y6PhoOjqXgTz2dtWykinz3kPiS2K1Yju3o="
+                when "DS"
+                  "https://media.istockphoto.com/id/1425210158/photo/smart-city-metaverse-iot-internet-network-technology-3d-robot-working-with-city-architecture.jpg?s=612x612&w=0&k=20&c=p4BbrymBKtQkoxQl_c9gGboZwz0Y5iWyEQLyu2a2d0s="
+                when "CSE"
+                  "https://media.istockphoto.com/id/2155769555/photo/artificial-intelligence-concept-cpu-quantum-computing.jpg?s=612x612&w=0&k=20&c=YtxFudsMX9ZCVjdbixdDEM4cJ5xotMn5g5ggGBejgfs="
+                else
+                  "https://via.placeholder.com/400x200?text=Department"
+              end %>
+
+              <img src="<%= image_url %>" class="card-img-top" alt="<%= department.name %> Department" style="height: 200px; object-fit: cover;">
+
+              <div class="card-body">
+                <h5 class="card-title text-center text-dark fw-semibold"><%= department.name %></h5>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+
+
+    <!-- 📘 UG & PG Courses -->
+    <div class="mt-5">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-header bg-info text-white fw-bold">📘 UG Courses</div>
+            <div class="card-body">
+              <ul>
+                <li>B.Tech – Computer Science</li>
+                <li>B.Tech – Electronics & Communication</li>
+                <li>B.Tech – Mechanical</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark fw-bold">📗 PG Courses</div>
+            <div class="card-body">
+              <ul>
+                <li>M.Tech – CSE</li>
+                <li>MBA – Business Administration</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🏢 Campus Placement Slider with Company Logos -->
+    <div class="mt-5">
+    <div class="card shadow-sm">
+      <div class="card-header bg-success text-white fw-bold">🏢 Companies Visited for Placement</div>
+      <div class="card-body">
+        <div class="marquee-container overflow-hidden">
+          <div class="marquee d-flex align-items-center">
+            <img src="https://www.tcs.com/content/dam/global-tcs/en/images/home/tcs-logo-1.svg" class="rounded-circle mx-3 bg-dark" height="70" width="70" alt="TCS">
+            <img src="https://www.wipro.com/content/dam/wipro/social-icons/wipro_new_logo.svg" class="rounded-circle mx-3" height="70" width="70" alt="Wipro">
+            <img src="https://www2.deloitte.com/content/dam/assets/logos/deloitte.svg" class="rounded-circle mx-3 bg-dark" height="70" width="70" alt="deloitte">
+            <img src="https://www.cognizant.com/us/media_1808da395be9f77c0124de824530b0338915414a8.svg?width=2000&format=webply&optimize=medium" class="rounded-circle mx-3" height="70" width="70" alt="Cognizant">
+             <img src="https://www.capgemini.com/wp-content/themes/capgemini2020/assets/images/logo-white.svg" class="rounded-circle mx-3 bg-dark" height="70" width="70" alt="Capgemini">
+            <img src="https://www.hcltech.com/themes/custom/hcltech/images/hcltech-new-logo.svg" class="rounded-circle mx-3" height="70" width="70" alt="HCL">
+
+            <!-- Repeat logos to make scrolling seamless -->
+            <img src="https://www.tcs.com/content/dam/global-tcs/en/images/home/tcs-logo-1.svg" class="rounded-circle mx-3 bg-dark" height="70" width="70" alt="TCS">
+            <img src="https://www.wipro.com/content/dam/wipro/social-icons/wipro_new_logo.svg" class="rounded-circle mx-3" height="70" width="70" alt="Wipro">
+            <img src="https://www2.deloitte.com/content/dam/assets/logos/deloitte.svg" class="rounded-circle mx-3 bg-dark" height="70" width="70" alt="deloitte">
+            <img src="https://www.cognizant.com/us/media_1808da395be9f77c0124de824530b0338915414a8.svg?width=2000&format=webply&optimize=medium" class="rounded-circle mx-3" height="70" width="70" alt="Cognizant">
+             <img src="https://www.capgemini.com/wp-content/themes/capgemini2020/assets/images/logo-white.svg" class="rounded-circle mx-3 bg-dark" height="70" width="70" alt="Capgemini">
+            <img src="https://www.hcltech.com/themes/custom/hcltech/images/hcltech-new-logo.svg" class="rounded-circle mx-3" height="70" width="70" alt="HCL">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

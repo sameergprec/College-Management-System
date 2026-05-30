@@ -1,0 +1,2 @@
+class InternalMarksController < ApplicationController
+end

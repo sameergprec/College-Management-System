@@ -1,0 +1,58 @@
+<%= form_with(model: [:admin, @academic_detail], local: true) do |f| %>
+  <% if @academic_detail.new_record? %>
+    <% unassigned_students = Student.where.not(id: AcademicDetail.select(:student_id)) %>
+    
+    <%= f.label :student_id, "Student" %>
+    <%= f.collection_select :student_id, unassigned_students, :id, :name, prompt: "Select a student", class: "form-control" %>
+  <% else %>
+    <p><strong>Student:</strong> <%= @academic_detail.student.name %></p>
+    <%= f.hidden_field :student_id %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :i_sem, "I Semester" %>
+    <%= f.number_field :i_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :ii_sem, "II Semester" %>
+    <%= f.number_field :ii_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :iii_sem, "III Semester" %>
+    <%= f.number_field :iii_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :iv_sem, "IV Semester" %>
+    <%= f.number_field :iv_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :v_sem, "V Semester" %>
+    <%= f.number_field :v_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :vi_sem, "VI Semester" %>
+    <%= f.number_field :vi_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :vii_sem, "VII Semester" %>
+    <%= f.number_field :vii_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :viii_sem, "VIII Semester" %>
+    <%= f.number_field :viii_sem, step: 0.01, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :cgpa %>
+    <%= f.number_field :cgpa, step: 0.01, class: "form-control" %>
+  </div>
+
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>

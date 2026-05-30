@@ -1,0 +1,24 @@
+<%= form_with(model: [:admin, @teacher]) do |f| %>
+  <%= f.label :id_number %>
+  <%= f.text_field :id_number %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :doj %>
+  <%= f.date_select :doj, start_year: 1990, end_year: Date.today.year, default: Date.today %>
+
+  <%= f.label :department %>
+  <%= f.collection_select :department_id, Department.all, :id, :name, prompt: "Select Department" %>
+
+  <%= f.label :qualifications %>
+  <%= f.text_field :qualifications %>
+
+  <%= f.label :specialization %>
+  <%= f.text_field :specialization %>
+
+  <%= f.label :user %>
+  <%= f.collection_select :user_id, @available_users, :id, :email, prompt: "Select Teacher User" %>
+
+  <%= f.submit "Save Teacher", class: "btn btn-primary" %>
+<% end %>

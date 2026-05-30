@@ -1,0 +1,191 @@
+<div class="container py-1">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-5">
+
+    <div>
+      <h2 class="fw-bold text-dark mb-1">Semesters</h2>
+      <p class="text-muted mb-0">
+        Department:
+        <span class="text-primary fw-semibold"><%= @department.name %></span>
+      </p>
+    </div>
+
+    <%= link_to "Add Semester",
+        new_admin_department_department_semester_path(@department),
+        class: "btn btn-primary px-4 py-2 rounded-3 shadow-sm fw-semibold" %>
+
+  </div>
+
+  <!-- GRID -->
+  <div class="row g-4">
+
+    <% @department_semesters.each do |semester| %>
+
+      <div class="col-lg-3 col-md-4 col-sm-6">
+
+        <div class="card semester-card border-0 shadow-sm h-100">
+
+          <!-- HEADER -->
+          <div class="semester-header">
+            <div class="semester-title">
+              Semester <%= semester.semester_no %>
+            </div>
+          </div>
+
+          <!-- BODY -->
+          <div class="card-body d-flex flex-column">
+
+            <div class="flex-grow-1">
+
+              <div class="text-muted small mb-3">
+                Academic Structure
+              </div>
+
+              <div class="info-box">
+                <div class="info-label">Department</div>
+                <div class="info-value"><%= @department.name %></div>
+              </div>
+
+              <div class="info-box">
+                <div class="info-label">Status</div>
+                <div class="info-value text-success">Active</div>
+              </div>
+
+            </div>
+
+            <!-- ACTIONS -->
+            <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
+
+              <!-- MANAGE -->
+              <%= link_to "Manage",
+                  admin_department_department_semester_subjects_path(@department, semester),
+                  class: "btn btn-dark btn-sm rounded-pill px-3 fw-semibold" %>
+
+              <!-- ICON ACTIONS -->
+              <div class="d-flex gap-2 align-items-center">
+
+                <!-- EDIT -->
+                <%= link_to edit_admin_department_department_semester_path(@department, semester),
+                    class: "action-icon edit",
+                    title: "Edit" do %>
+                  ✏️
+                <% end %>
+
+                <!-- DELETE (FIXED FORM WRAPPER) -->
+                <%= button_to admin_department_department_semester_path(@department, semester),
+                    method: :delete,
+                    data: { turbo_confirm: "Delete this semester?" },
+                    class: "icon-form" do %>
+
+                  <span class="action-icon delete" title="Delete">🗑️</span>
+
+                <% end %>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
+
+<style>
+
+.semester-card {
+  border-radius: 14px;
+  transition: 0.25s ease;
+}
+
+.semester-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+/* HEADER */
+.semester-header {
+  background: linear-gradient(135deg, #1f2937, #2563eb);
+  padding: 14px;
+  text-align: center;
+}
+
+.semester-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* INFO */
+.info-box {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.info-label {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.info-value {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* ICON BUTTON */
+.action-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 16px;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+/* EDIT */
+.action-icon.edit {
+  color: #f59e0b;
+}
+
+.action-icon.edit:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+/* DELETE */
+.action-icon.delete {
+  color: #ef4444;
+}
+
+.action-icon.delete:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  transform: translateY(-2px);
+}
+
+/* FIX BUTTON_TO WRAPPER */
+.icon-form {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+
+</style>

@@ -1,0 +1,398 @@
+<div class="container py-5">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+    <div>
+
+      <h2 class="fw-bold mb-1 text-dark">
+        🎓 Student Registration Portal
+      </h2>
+
+      <p class="text-muted mb-0">
+        Add and manage student academic details
+      </p>
+
+    </div>
+
+    <%= link_to "⬅ Back",
+        admin_students_path,
+        class: "btn btn-outline-dark rounded-pill px-4 shadow-sm fw-semibold" %>
+
+  </div>
+
+  <!-- FORM CARD -->
+  <div class="card border-0 shadow-lg rounded-5 overflow-hidden">
+
+    <!-- TOP BANNER -->
+    <div class="p-4 text-white"
+         style="background: linear-gradient(135deg, #0f172a, #2563eb);">
+
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+        <div>
+
+          <% if @student.persisted? %>
+
+            <h3 class="fw-bold mb-1">
+              ✏️ Update Student
+            </h3>
+
+            <p class="mb-0 text-light">
+              Modify student profile and academic information
+            </p>
+
+          <% else %>
+
+            <h3 class="fw-bold mb-1">
+              📝 New Student Registration
+            </h3>
+
+            <p class="mb-0 text-light">
+              Create a complete student profile
+            </p>
+
+          <% end %>
+
+        </div>
+
+        <div class="text-center">
+
+          <div class="bg-white text-dark rounded-circle shadow d-flex align-items-center justify-content-center"
+               style="width:80px;height:80px;font-size:32px;">
+
+            👨‍🎓
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FORM BODY -->
+    <div class="card-body p-5 bg-light">
+
+      <%= form_with(model: [:admin, @student],
+          local: true,
+          html: { multipart: true }) do |f| %>
+
+        <!-- PERSONAL DETAILS -->
+        <div class="card border-0 shadow-sm rounded-4 mb-5">
+
+          <div class="card-header bg-white border-0 py-3 rounded-top-4">
+
+            <h5 class="fw-bold mb-0 text-primary">
+              👤 Personal Information
+            </h5>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="row g-4">
+
+              <div class="col-md-4">
+
+                <%= f.label :name,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.text_field :name,
+                    class: "form-control custom-input",
+                    placeholder: "Enter full name" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :father_name,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.text_field :father_name,
+                    class: "form-control custom-input",
+                    placeholder: "Enter father name" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :mother_name,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.text_field :mother_name,
+                    class: "form-control custom-input",
+                    placeholder: "Enter mother name" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :dob,
+                    "Date of Birth",
+                    class: "form-label fw-semibold" %>
+
+                <%= f.date_field :dob,
+                    class: "form-control custom-input" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :profile_picture,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.file_field :profile_picture,
+                    class: "form-control custom-input" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :address,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.text_area :address,
+                    rows: 1,
+                    class: "form-control custom-input",
+                    placeholder: "Enter address" %>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ACADEMIC DETAILS -->
+        <div class="card border-0 shadow-sm rounded-4 mb-5">
+
+          <div class="card-header bg-white border-0 py-3 rounded-top-4">
+
+            <h5 class="fw-bold mb-0 text-success">
+              📚 Academic Information
+            </h5>
+
+          </div>
+
+          <div class="card-body">
+
+            <div class="row g-4">
+
+              <div class="col-md-4">
+
+                <%= f.label :user_id,
+                    "Student User",
+                    class: "form-label fw-semibold" %>
+
+                <%= f.collection_select :user_id,
+                    User.where(role: 'student').where.not(id: Student.select(:user_id)),
+                    :id,
+                    :email,
+                    { prompt: "Select Student User" },
+                    class: "form-select custom-input" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :roll_no,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.text_field :roll_no,
+                    class: "form-control custom-input",
+                    placeholder: "Enter roll number" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :department_id,
+                    "Department",
+                    class: "form-label fw-semibold" %>
+
+                <%= f.collection_select :department_id,
+                    Department.all,
+                    :id,
+                    :name,
+                    { prompt: "Select Department" },
+                    class: "form-select custom-input" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :course,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.select :course,
+                    ["B.TECH", "M.TECH", "Diploma"],
+                    { prompt: "Select Course" },
+                    class: "form-select custom-input",
+                    id: "course-select" %>
+
+              </div>
+
+              <div class="col-md-4">
+
+                <%= f.label :semester,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.select :semester,
+                    [],
+                    {},
+                    class: "form-select custom-input",
+                    id: "semester-select" %>
+
+              </div>
+
+              <div class="col-md-2">
+
+                <%= f.label :section,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.select :section,
+                    ["A", "B", "C", "D"],
+                    { prompt: "Select" },
+                    class: "form-select custom-input" %>
+
+              </div>
+
+              <div class="col-md-2">
+
+                <%= f.label :scheme,
+                    class: "form-label fw-semibold" %>
+
+                <%= f.text_field :scheme,
+                    class: "form-control custom-input",
+                    placeholder: "S25" %>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+          <%= f.submit @student.persisted? ? "💾 Update Student" : "🚀 Register Student",
+              class: "btn btn-primary px-5 py-3 rounded-pill fw-bold shadow-lg" %>
+
+          <%= link_to "❌ Cancel",
+              admin_students_path,
+              class: "btn btn-outline-danger px-5 py-3 rounded-pill fw-bold shadow-sm" %>
+
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- SCRIPT -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const courseSelect = document.getElementById("course-select");
+    const semesterSelect = document.getElementById("semester-select");
+
+    const semesterOptions = {
+      "B.TECH": 8,
+      "M.TECH": 4,
+      "Diploma": 6
+    };
+
+    function populateSemesters(course) {
+
+      semesterSelect.innerHTML =
+        "<option value=''>Select Semester</option>";
+
+      const total = semesterOptions[course];
+
+      for (let i = 1; i <= total; i++) {
+
+        let option = document.createElement("option");
+
+        option.value = i;
+        option.text = "Semester " + i;
+
+        semesterSelect.appendChild(option);
+
+      }
+
+    }
+
+    if (courseSelect && semesterSelect) {
+
+      courseSelect.addEventListener("change", function () {
+        populateSemesters(this.value);
+      });
+
+      const selectedCourse = courseSelect.value;
+      const selectedSemester = "<%= @student.semester.to_s %>";
+
+      if (selectedCourse && semesterOptions[selectedCourse]) {
+
+        populateSemesters(selectedCourse);
+
+        if (selectedSemester) {
+          semesterSelect.value = selectedSemester;
+        }
+
+      }
+
+    }
+
+  });
+</script>
+
+<!-- STYLES -->
+<style>
+
+  body {
+    background: #f5f7fb;
+  }
+
+  .custom-input {
+    border-radius: 14px;
+    border: none;
+    padding: 12px 14px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: 0.25s;
+  }
+
+  .custom-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(37,99,235,0.15);
+    transform: translateY(-1px);
+  }
+
+  .card {
+    transition: 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+  }
+
+  .form-label {
+    color: #374151;
+    margin-bottom: 8px;
+  }
+
+  .btn {
+    transition: 0.25s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+</style>

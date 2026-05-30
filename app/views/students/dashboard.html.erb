@@ -1,0 +1,128 @@
+<!-- Welcome Section -->
+<div class="card mb-4 shadow-lg border-0" style="font-size: 12px;">
+    <div class="card-header text-white text-center d-flex justify-content-center align-items-center gap-2"
+         style="background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045); font-weight: bold; font-size: 1.3rem;">
+      <i class="fas fa-user-graduate me-2"></i>
+      Welcome, <%= current_user.student&.name || current_user.email %>
+    </div>
+
+
+  <div class="card-body bg-light">
+    <table class="table table-bordered table-striped mb-0">
+      <tbody>
+        <tr>
+          <th class="text-dark text-start fw-bold" style="color: navy;">Roll No</th>
+          <td class="fw-bold text-start text-danger"><%= current_user.student&.roll_no %></td>
+
+          <th class="text-dark text-start fw-bold">Father's Name</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.father_name %></td>
+        </tr>
+
+        <tr>
+          <th class="text-dark text-start fw-bold">Mother's Name</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.mother_name %></td>
+
+          <th class="text-dark text-start fw-bold">Date of Birth</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.dob&.strftime("%d-%m-%Y") %></td>
+        </tr>
+
+        <tr>
+          <th class="text-dark text-start fw-bold">Department</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.department&.name %></td>
+
+          <th class="text-dark text-start fw-bold">Semester</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.semester %></td>
+        </tr>
+
+        <tr>
+          <th class="text-dark text-start fw-bold">Section</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.section %></td>
+
+          <th class="text-dark text-start fw-bold">Course</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.course %></td>
+        </tr>
+
+        <tr>
+          <th class="text-dark text-start fw-bold">Scheme</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.scheme %></td>
+
+          <th class="text-dark text-start fw-bold">Address</th>
+          <td class="fw-bold text-primary text-start"><%= current_user.student&.address %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Academic Performance Section -->
+<% academic = current_user.student&.academic_detail %>
+
+<% if academic %>
+  <div class="card mb-4" style="font-size: 12px;">
+    <div class="card-header bg-success text-white fw-bold">
+      Academic Performance
+    </div>
+    <div class="card-body">
+      <div class="row row-cols-1 row-cols-md-4 g-3">
+        <% {
+            "I Sem" => academic.i_sem,
+            "II Sem" => academic.ii_sem,
+            "III Sem" => academic.iii_sem,
+            "IV Sem" => academic.iv_sem,
+            "V Sem" => academic.v_sem,
+            "VI Sem" => academic.vi_sem,
+            "VII Sem" => academic.vii_sem,
+            "VIII Sem" => academic.viii_sem
+          }.each do |label, gpa| %>
+
+          <% if gpa.present? %>
+            <% color_class =
+                case gpa.to_f
+                when 9..10 then "text-success fw-bold"
+                when 8..8.99 then "text-primary fw-bold"
+                when 7..7.99 then "text-info fw-bold"
+                when 6..6.99 then "text-secondary fw-bold"
+                when 5..5.99 then "text-warning fw-bold"
+                else "text-danger fw-bold"
+                end
+            %>
+
+            <% grade =
+                case gpa.to_f
+                when 9.5..10 then "A+"
+                when 9.0...9.49 then "A"
+                when 8.5...8.99 then "B+"
+                when 8.0...8.49 then "B"
+                when 7.5...7.99 then "C+"
+                when 7.0...7.49 then "C"
+                when 6.5...6.99 then "D"
+                when 5.5...6.49 then "E"
+                else "F"
+                end
+            %>
+
+            <div class="col border rounded p-2 shadow-sm">
+              <strong><%= label %>:</strong>
+              <span class="<%= color_class %>"><%= gpa %> (Grade: <%= grade %>)</span>
+            </div>
+          <% else %>
+            <div class="col border rounded p-2 shadow-sm text-muted">
+              <strong><%= label %>:</strong>
+              <span class="text-secondary">NC (Not Completed)</span>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <hr>
+      <p class="fs-6 mt-3">
+        <strong>CGPA:</strong>
+        <span class="text-info fw-bold"><%= academic.cgpa || "NC" %></span>
+      </p>
+    </div>
+  </div>
+<% else %>
+  <div class="alert alert-info">
+    Academic details are not yet available.
+  </div>
+<% end %>

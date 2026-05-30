@@ -1,0 +1,2 @@
+class ExternalMarksController < ApplicationController
+end

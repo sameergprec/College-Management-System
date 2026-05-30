@@ -1,0 +1,186 @@
+<!-- Login Form -->
+<div class="min-vh-100 d-flex align-items-center justify-content-center cyber-bg">
+  <div class="glass-card text-white p-5">
+
+    <h3 class="text-center mb-4 fw-bold text-glow">🔐 Login</h3>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+      <!-- Email -->
+      <div class="mb-4">
+        <%= f.label :email, class: "form-label text-dark fw-semibold" do %>
+          <i class="fas fa-envelope me-2"></i>
+          Email <span class="text-danger">*</span>
+        <% end %>
+
+        <%= f.email_field :email,
+            autofocus: true,
+            autocomplete: "email",
+            placeholder: "you@rorec.ac.in",
+            class: "form-control input-glow" %>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4 position-relative">
+        <%= f.label :password, class: "form-label text-dark fw-semibold" do %>
+          <i class="fas fa-lock me-2"></i>
+          Password <span class="text-danger">*</span>
+        <% end %>
+
+        <%= f.password_field :password,
+            autocomplete: "current-password",
+            placeholder: "Enter your password",
+            class: "form-control input-glow",
+            id: "password-field" %>
+
+        <i class="fas fa-eye toggle-password" id="togglePassword"></i>
+      </div>
+
+      <!-- Remember Me -->
+      <% if devise_mapping.rememberable? %>
+        <div class="form-check mb-4">
+          <%= f.check_box :remember_me, class: "form-check-input" %>
+          <%= f.label :remember_me, class: "form-check-label text-dark" %>
+        </div>
+      <% end %>
+
+      <!-- Submit -->
+      <div class="d-grid">
+        <%= f.submit "Log in", class: "btn cyber-btn rounded-pill py-2" %>
+      </div>
+
+    <% end %>
+
+    <!-- Links -->
+    <div class="text-center mt-4">
+      <%= render "devise/shared/links" %>
+    </div>
+
+  </div>
+</div>
+
+<!-- Styles -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+  @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cyber-bg {
+    background: radial-gradient(
+      ellipse at center,
+      rgb(28, 14, 78),
+      rgb(0, 1, 37),
+      rgb(2, 1, 46)
+    );
+    background-size: 200% 200%;
+    animation: backgroundShift 12s ease infinite;
+  }
+
+  @keyframes backgroundShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  .glass-card {
+    max-width: 460px;
+    width: 100%;
+    border-radius: 2rem;
+    background: rgb(255, 255, 255);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .text-glow {
+    color: rgb(14, 2, 41);
+    text-shadow: 0 0 5px #ff4da6, 0 0 15px #ff4da6;
+  }
+
+  .input-glow {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #222;
+    border-radius: 50px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+  }
+
+  .input-glow::placeholder {
+    color: #777;
+    font-style: italic;
+  }
+
+  .input-glow:focus {
+    border-color: #ff4da6;
+    box-shadow: 0 0 10px rgba(255, 77, 166, 0.5);
+    outline: none;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .cyber-btn {
+    background: linear-gradient(135deg, #ff4da6, #6a11cb);
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    box-shadow: 0 0 10px #ff4da6;
+    transition: 0.3s ease-in-out;
+  }
+
+  .cyber-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px #ff4da6, 0 0 30px #6a11cb;
+  }
+
+  .form-label i {
+    color: #ff4da6;
+  }
+
+  /* Show/Hide Password Icon */
+  .toggle-password {
+    position: absolute;
+    right: 20px;
+    top: 63%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ff4da6;
+    font-size: 1rem;
+  }
+</style>
+
+<!-- Password Toggle Script -->
+<script>
+  document.addEventListener("turbo:load", function () {
+
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordField = document.getElementById("password-field");
+
+    if (togglePassword && passwordField) {
+
+      togglePassword.addEventListener("click", function () {
+
+        const type =
+          passwordField.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+
+        passwordField.setAttribute("type", type);
+
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
+      });
+
+    }
+  });
+</script>

@@ -1,0 +1,27 @@
+<h2>All Departments</h2>
+
+<%= link_to "Add Department", new_admin_department_path, class: "btn btn-primary" %>
+<%= link_to "Back", admins_dashboard_path, class: "btn btn-secondary" %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @departments.each do |department| %>
+      <tr>
+        <td><%= department.name %></td>
+        <td><%= department.code %></td>
+        <td>
+          <%= link_to "Show", admin_department_path(department) %> |
+          <%= link_to "Edit", edit_admin_department_path(department) %> |
+          <%= button_to "Delete", admin_department_path(department), method: :delete, data: { confirm: "Are you sure?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

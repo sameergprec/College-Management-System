@@ -1,0 +1,70 @@
+<div class="container mt-5" style="font-size: 13px;">
+  <div class="card shadow-lg border-0 rounded-4 p-4" style="background: linear-gradient(to bottom right, #f9f9f9, #e7ecf5);">
+    
+    <h4 class="text-center fw-bold text-primary mb-4">
+      ✨ Manage User Details
+    </h4>
+
+    <%= form_with(model: [:admin, @user], local: true, html: { class: "row g-4" }) do |f| %>
+
+      <!-- Email Field -->
+      <div class="col-md-6">
+        <%= f.label :email, class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text bg-white"><i class="bi bi-envelope-fill text-primary"></i></span>
+          <%= f.email_field :email, class: "form-control border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Role Field -->
+      <div class="col-md-6">
+        <%= f.label :role, class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text bg-white"><i class="bi bi-person-fill-gear text-dark"></i></span>
+          <%= f.select :role, ["admin", "teacher", "student", "department"], {}, class: "form-select border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Department Field -->
+      <div class="col-md-6">
+        <%= f.label :department_id, "Department", class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text bg-white"><i class="bi bi-building text-danger"></i></span>
+          <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: "Select Department" }, class: "form-select border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="col-md-6">
+        <%= f.label :password, class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text bg-white"><i class="bi bi-lock-fill text-secondary"></i></span>
+          <%= f.password_field :password, class: "form-control border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Password Confirmation -->
+      <div class="col-md-6">
+        <%= f.label :password_confirmation, class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text bg-white"><i class="bi bi-lock-fill text-secondary"></i></span>
+          <%= f.password_field :password_confirmation, class: "form-control border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-12 text-center mt-3">
+        <%= f.submit "💾 Save Changes", class: "btn btn-success px-5 py-2 rounded-pill shadow-sm fw-semibold" %>
+      </div>
+
+    <% end %>
+
+    <!-- Back Button -->
+    <div class="text-center mt-4">
+      <%= link_to admin_users_path, class: "btn btn-outline-secondary rounded-pill px-4 shadow-sm" do %>
+        ⬅ Back to Users
+      <% end %>
+    </div>
+
+  </div>
+</div>

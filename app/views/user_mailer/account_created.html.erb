@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to ROREC</title>
+</head>
+<body style="font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 30px; margin: 0;">
+  <div style="max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 12px; box-shadow: 0 0 12px rgba(0,0,0,0.08);">
+
+    <!-- Logo Header -->
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+      <span style="font-size: 2rem; color: #ff4da6;">🎓</span>
+      <span style="color: #ff4da6; font-size: 2.5rem; font-weight: bold; letter-spacing: 1px;">ROREC</span>
+    </div>
+
+    <!-- Welcome Title -->
+    <h2 style="color: #4a90e2; text-align: center; margin-bottom: 30px;">🎉 Welcome to ROREC!</h2>
+
+    <!-- Intro Message -->
+    <p style="font-size: 16px; color: #333;">Hello <strong><%= @user.email %></strong>,</p>
+
+    <p style="font-size: 16px; color: #333;">
+      Your account has been successfully created with the role of 
+      <strong style="color: #4a90e2;"><%= @user.role.capitalize %></strong>.
+    </p>
+
+    <!-- Role-based Greeting -->
+    <% if @user.role == 'student' %>
+      <p style="font-size: 16px; color: #333;">
+        As a student, you now have access to your dashboard, attendance tracking, results, and more. Let's get started on your academic journey!
+      </p>
+    <% elsif @user.role == 'teacher' %>
+      <p style="font-size: 16px; color: #333;">
+        As a teacher, you can now manage attendance, update academic records, and guide students through their curriculum.
+      </p>
+    <% elsif @user.role == 'department' %>
+      <p style="font-size: 16px; color: #333;">
+        As the Head of Department, you have access to full administrative tools to monitor progress, manage staff, and enhance the department's performance.
+      </p>
+    <% end %>
+
+    <p style="font-size: 16px; color: #333;">You can log in using your registered email and password.</p>
+
+    <!-- Login Button -->
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="<%= root_url %>" 
+         style="background-color: #4a90e2; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 16px;">
+         🔐 Login to Your Account
+      </a>
+    </div>
+
+    <!-- Footer Note -->
+    <hr style="margin: 40px 0;" />
+    <p style="font-size: 14px; color: #777; text-align: center;">
+      If you did not register for this account, please ignore this email or contact our support team.
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student: one
+  semester_no: 1
+  sgpa: 1.5
+  cgpa: 1.5
+  status: MyString
+
+two:
+  student: two
+  semester_no: 1
+  sgpa: 1.5
+  cgpa: 1.5
+  status: MyString

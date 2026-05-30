@@ -1,0 +1,27 @@
+<div class="container mt-1">
+
+  <h2 class="fw-bold mb-4">
+    Edit Semester
+  </h2>
+
+  <%= form_with model: [
+    :admin,
+    @department,
+    @department_semester
+  ] do |f| %>
+
+    <div class="mb-3">
+
+      <%= f.label :semester_no %>
+
+      <%= f.number_field :semester_no,
+          class: "form-control" %>
+
+    </div>
+
+    <%= f.submit "Update Semester",
+        class: "btn btn-dark rounded-pill px-4" %>
+
+  <% end %>
+
+</div>

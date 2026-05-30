@@ -1,0 +1,527 @@
+<div class="container-fluid py-3 px-3 marks-page">
+
+  <!-- ALERTS -->
+  <% if notice %>
+    <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm">
+      ✅ <%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
+
+  <% if alert %>
+    <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm">
+      ❌ <%= alert %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  <% end %>
+
+  <!-- PAGE HEADER -->
+  <div class="card border-0 shadow-sm rounded-4 mb-4 header-card">
+    <div class="card-body">
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+        <!-- LEFT -->
+        <div>
+
+          <h3 class="fw-bold mb-1 text-dark">
+            🎓 Student Marks Entry
+          </h3>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+
+            <span class="info-badge bg-primary text-white">
+              📘 <%= @subject.subject_name %>
+            </span>
+
+            <span class="info-badge bg-dark text-white">
+              Semester <%= @department_semester.semester_no %>
+            </span>
+
+            <span class="info-badge bg-success text-white">
+              👨‍🎓 <%= @students.count %> Students
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="d-flex gap-2 flex-wrap">
+
+          <button type="button"
+                  class="btn btn-primary rounded-pill px-4 fw-semibold"
+                  id="showInternal1">
+            Internal 1
+          </button>
+
+          <button type="button"
+                  class="btn btn-outline-primary rounded-pill px-4 fw-semibold"
+                  id="showInternal2">
+            Internal 2
+          </button>
+
+          <button type="button"
+                  class="btn btn-outline-warning rounded-pill px-4 fw-semibold"
+                  id="showExternal">
+            External
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body">
+
+      <div class="row g-3 align-items-center">
+
+        <!-- SEARCH -->
+        <div class="col-md-4">
+
+          <input type="text"
+                 id="studentSearch"
+                 class="form-control rounded-4"
+                 placeholder="🔍 Search student...">
+
+        </div>
+
+        <!-- SECTION -->
+        <div class="col-md-3">
+
+          <select id="sectionFilter"
+                  class="form-select rounded-4">
+
+            <option value="ALL">
+              All Sections
+            </option>
+
+            <% sections = @students.map { |s| s.section.to_s.upcase }.uniq.sort rescue ["A"] %>
+
+            <% sections.each do |section| %>
+
+              <option value="<%= section %>">
+                Section <%= section %>
+              </option>
+
+            <% end %>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <%= form_with url: bulk_save_admin_department_department_semester_subject_student_marks_path(
+        @department,
+        @department_semester,
+        @subject
+      ),
+      method: :post,
+      local: true do %>
+
+    <!-- TABLE -->
+    <div class="card border-0 shadow rounded-4 overflow-hidden">
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle text-center mb-0 marks-table">
+
+          <!-- TABLE HEAD -->
+          <thead class="table-dark">
+
+            <tr>
+
+              <th>Roll No</th>
+
+              <th class="text-start">
+                Student
+              </th>
+
+              <!-- INTERNAL 1 -->
+              <th class="internal1-col">
+                Assignment-1(5)
+              </th>
+
+              <th class="internal1-col">
+                Assessment-1(15)
+              </th>
+
+              <th class="internal1-col">
+                Ethics-1(5)
+              </th>
+
+              <th class="internal1-col">
+                Classwork-1(5)
+              </th>
+
+              <th class="internal1-col">
+                Total Internal-I(30)
+              </th>
+
+              <!-- INTERNAL 2 -->
+              <th class="internal2-col d-none">
+                Assignment-2(5)
+              </th>
+
+              <th class="internal2-col d-none">
+                Assessment-2(15)
+              </th>
+
+              <th class="internal2-col d-none">
+                Ethics-2(5)
+              </th>
+
+              <th class="internal2-col d-none">
+                Classwork-2(5)
+              </th>
+
+              <th class="internal1-col d-none">
+                Total Internal-II(30)
+              </th>
+
+              <!-- EXTERNAL -->
+              <th class="external-col d-none">
+                External Exam(70)
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <!-- BODY -->
+          <tbody>
+
+            <% @students.each do |student| %>
+
+              <% mark = @marks[student.id] || StudentMark.new %>
+
+              <tr class="student-row"
+                  data-section="<%= student.section.to_s.upcase rescue 'A' %>">
+
+                <!-- ROLL -->
+                <td class="fw-bold text-primary">
+                  <%= student.roll_no %>
+                </td>
+
+                <!-- NAME -->
+                <td class="text-start">
+
+                  <div class="d-flex align-items-center gap-3">
+
+                    <div class="student-avatar">
+                      <%= student.name.first.upcase rescue "S" %>
+                    </div>
+
+                    <div>
+
+                      <div class="fw-semibold">
+                        <%= student.name %>
+                      </div>
+
+                      <small class="text-muted">
+                        Section :
+                        <span class="fw-bold text-primary">
+                          <%= student.section rescue "A" %>
+                        </span>
+                      </small>
+
+                    </div>
+
+                  </div>
+
+                </td>
+
+                <!-- INTERNAL 1 -->
+
+                <td class="internal1-col">
+                  <%= number_field_tag "m[#{student.id}][i1_assignment]",
+                      mark.i1_assignment,
+                      min: 0,
+                      max: 5,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal1-col">
+                  <%= number_field_tag "m[#{student.id}][i1_assessment]",
+                      mark.i1_assessment,
+                      min: 0,
+                      max: 25,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal1-col">
+                  <%= number_field_tag "m[#{student.id}][i1_ethics]",
+                      mark.i1_ethics,
+                      min: 0,
+                      max: 5,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal1-col">
+                  <%= number_field_tag "m[#{student.id}][i1_classwork]",
+                      mark.i1_classwork,
+                      min: 0,
+                      max: 5,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal1-col">
+                  <%= mark.i1_total %>
+                </td>
+
+                <!-- INTERNAL 2 -->
+
+                <td class="internal2-col d-none">
+                  <%= number_field_tag "m[#{student.id}][i2_assignment]",
+                      mark.i2_assignment,
+                      min: 0,
+                      max: 5,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal2-col d-none">
+                  <%= number_field_tag "m[#{student.id}][i2_assessment]",
+                      mark.i2_assessment,
+                      min: 0,
+                      max: 25,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal2-col d-none">
+                  <%= number_field_tag "m[#{student.id}][i2_ethics]",
+                      mark.i2_ethics,
+                      min: 0,
+                      max: 5,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal2-col d-none">
+                  <%= number_field_tag "m[#{student.id}][i2_classwork]",
+                      mark.i2_classwork,
+                      min: 0,
+                      max: 5,
+                      class: "form-control marks-input" %>
+                </td>
+
+                <td class="internal2-col d-none">
+                  <%= mark.i2_total %>
+                </td>
+
+                <!-- EXTERNAL -->
+
+                <td class="external-col d-none">
+                  <%= number_field_tag "m[#{student.id}][external_exam]",
+                      mark.external_exam,
+                      min: 0,
+                      max: 70,
+                      class: "form-control marks-input external-box" %>
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+    <div class="d-flex justify-content-end gap-3 mt-4">
+
+      <%= link_to admin_department_department_semester_subjects_path(
+            @department,
+            @department_semester
+          ),
+          class: "btn btn-outline-dark rounded-pill px-4 fw-semibold" do %>
+
+        ⬅ Back
+
+      <% end %>
+
+      <button type="submit"
+              class="btn btn-success rounded-pill px-5 fw-semibold shadow-sm">
+
+        💾 Save Marks
+
+      </button>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+<!-- STYLES -->
+<style>
+
+body{
+  background:#f4f7fb;
+}
+
+.header-card{
+  background:white;
+}
+
+.info-badge{
+  padding:8px 15px;
+  border-radius:50px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.student-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#0d6efd,#5b8cff);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+
+.marks-table th{
+  font-size:13px;
+  white-space:nowrap;
+}
+
+.marks-table td{
+  white-space:nowrap;
+}
+
+.marks-input{
+  min-width:80px;
+  text-align:center;
+  border-radius:12px;
+  height:42px;
+  font-weight:600;
+}
+
+.external-box{
+  background:#fff8e8;
+}
+
+@media(max-width:768px){
+
+  .marks-input{
+    min-width:65px;
+    font-size:12px;
+  }
+
+  .marks-table th,
+  .marks-table td{
+    font-size:12px;
+  }
+
+}
+
+</style>
+
+<!-- SCRIPT -->
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const searchInput = document.getElementById("studentSearch");
+  const sectionFilter = document.getElementById("sectionFilter");
+
+  // SEARCH + FILTER
+  function filterStudents() {
+
+    const searchValue = searchInput.value.toLowerCase();
+    const selectedSection = sectionFilter.value;
+
+    document.querySelectorAll(".student-row").forEach(function(row){
+
+      const text = row.innerText.toLowerCase();
+      const section = row.dataset.section;
+
+      const matchSearch = text.includes(searchValue);
+
+      const matchSection =
+        selectedSection === "ALL" ||
+        selectedSection === section;
+
+      row.style.display =
+        matchSearch && matchSection
+        ? ""
+        : "none";
+
+    });
+
+  }
+
+  searchInput.addEventListener("keyup", filterStudents);
+  sectionFilter.addEventListener("change", filterStudents);
+
+  // BUTTONS
+  const internal1Btn = document.getElementById("showInternal1");
+  const internal2Btn = document.getElementById("showInternal2");
+  const externalBtn  = document.getElementById("showExternal");
+
+  function hideAllColumns(){
+
+    document.querySelectorAll(".internal1-col").forEach(col=>{
+      col.classList.add("d-none");
+    });
+
+    document.querySelectorAll(".internal2-col").forEach(col=>{
+      col.classList.add("d-none");
+    });
+
+    document.querySelectorAll(".external-col").forEach(col=>{
+      col.classList.add("d-none");
+    });
+
+  }
+
+  // INTERNAL 1
+  internal1Btn.addEventListener("click", function(){
+
+    hideAllColumns();
+
+    document.querySelectorAll(".internal1-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+  });
+
+  // INTERNAL 2
+  internal2Btn.addEventListener("click", function(){
+
+    hideAllColumns();
+
+    document.querySelectorAll(".internal2-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+  });
+
+  // EXTERNAL
+  externalBtn.addEventListener("click", function(){
+
+    hideAllColumns();
+
+    document.querySelectorAll(".external-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+  });
+
+});
+
+</script>

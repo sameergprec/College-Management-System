@@ -1,0 +1,51 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0 rounded-4 p-4" style="background: linear-gradient(to bottom right, #f8f9ff, #e6ecf9); font-size: 12px;">
+    
+    <!-- Back Button -->
+    <div class="mb-3">
+      <%= link_to admin_users_path, class: "btn btn-outline-primary rounded-pill px-4 shadow-sm" do %>
+        <i class="bi bi-arrow-left"></i> Back to Users
+      <% end %>
+    </div>
+    
+    <h4 class="text-center fw-bold text-primary mb-4">
+      ✨ Edit User Details
+    </h4>
+
+    <%= form_with(model: [:admin, @user], local: true, html: { class: "row g-4" }) do |f| %>
+
+      <!-- Email Field -->
+      <div class="col-md-6">
+        <%= f.label :email, class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text"><i class="bi bi-envelope-fill text-primary"></i></span>
+          <%= f.email_field :email, class: "form-control border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Role Field -->
+      <div class="col-md-6">
+        <%= f.label :role, class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text"><i class="bi bi-person-badge-fill text-dark"></i></span>
+          <%= f.select :role, ["admin", "teacher", "student", "department"], {}, class: "form-select border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Department Field -->
+      <div class="col-md-6">
+        <%= f.label :department_id, "Department", class: "form-label fw-semibold" %>
+        <div class="input-group shadow-sm">
+          <span class="input-group-text"><i class="bi bi-building text-danger"></i></span>
+          <%= f.collection_select :department_id, Department.all, :id, :name, { prompt: "Select Department" }, class: "form-select border-0 rounded-end" %>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-12 text-center mt-4">
+        <%= f.submit "💾 Update User", class: "btn btn-success px-5 py-2 rounded-pill shadow-sm fw-semibold" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

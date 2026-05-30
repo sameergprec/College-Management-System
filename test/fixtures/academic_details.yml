@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student: one
+  i_sem: 1.5
+  ii_sem: 1.5
+  iii_sem: 1.5
+  iv_sem: 1.5
+  v_sem: 1.5
+  vi_sem: 1.5
+  vii_sem: 1.5
+  viii_sem: 1.5
+  cgpa: 1.5
+
+two:
+  student: two
+  i_sem: 1.5
+  ii_sem: 1.5
+  iii_sem: 1.5
+  iv_sem: 1.5
+  v_sem: 1.5
+  vi_sem: 1.5
+  vii_sem: 1.5
+  viii_sem: 1.5
+  cgpa: 1.5

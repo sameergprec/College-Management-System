@@ -1,0 +1,23 @@
+<h1 class="mb-4">Welcome to the <%= current_user.department.name %> Department Dashboard</h1>
+
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <h5 class="card-title">Department Students</h5>
+        <p class="card-text">View students in your department.</p>
+        <%= link_to "View Students", department_students_path(current_user.department_id), class: "btn btn-outline-primary" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-body text-center">
+        <h5 class="card-title">Department Teachers</h5>
+        <p class="card-text">View teachers in your department.</p>
+        <%= link_to "View Teachers", department_teachers_path(current_user.department_id), class: "btn btn-outline-success" %>
+      </div>
+    </div>
+  </div>
+</div>

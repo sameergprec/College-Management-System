@@ -1,0 +1,63 @@
+<div class="container mt-5" style="font-size: 13px;">
+
+  <h2 class="text-center mb-4 fw-bold text-dark" style="font-size: 20px;">
+    🎓 Select Department to View Students
+  </h2>
+
+  <div class="row justify-content-center gx-4 gy-4">
+
+    <!-- ALL STUDENTS CARD -->
+  <div class="col-md-3 col-sm-6">
+
+    <%= link_to admin_department_students_path(
+          Department.first,
+          show: "all"
+        ),
+        class: "btn w-100 shadow rounded-4 py-3 text-white fw-bold border-0",
+        style: "background: linear-gradient(to right, #ff512f, #dd2476); transition: 0.3s;" do %>
+
+      <i class="bi bi-people-fill"></i>
+      ALL STUDENTS
+
+    <% end %>
+
+  </div>
+
+    <!-- DEPARTMENT CARDS -->
+    <% @departments.each do |dept| %>
+
+      <div class="col-md-3 col-sm-6">
+
+        <%= link_to admin_department_students_path(dept.id),
+            class: "btn w-100 shadow-sm rounded-4 py-3 text-white fw-semibold border-0",
+            style: "background: linear-gradient(to right, #6a11cb, #2575fc); transition: 0.3s;" do %>
+
+          <i class="bi bi-building"></i>
+          <%= dept.code.upcase %>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+  <div class="text-center mt-5">
+
+    <%= link_to admins_dashboard_path,
+        class: "btn btn-outline-dark btn-sm px-4 py-2 shadow-sm rounded-pill fw-semibold" do %>
+
+      ⬅ Back to Dashboard
+
+    <% end %>
+
+  </div>
+
+</div>
+
+<style>
+  .btn:hover {
+    transform: translateY(-5px) scale(1.02);
+  }
+</style>

@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  roll_no: MyString
+  name: MyString
+  father_name: MyString
+  mother_name: MyString
+  dob: 2025-04-05
+  semester: 1
+  section: MyString
+  course: MyString
+  scheme: MyString
+  address: MyText
+  user: one
+  department: one
+
+two:
+  roll_no: MyString
+  name: MyString
+  father_name: MyString
+  mother_name: MyString
+  dob: 2025-04-05
+  semester: 1
+  section: MyString
+  course: MyString
+  scheme: MyString
+  address: MyText
+  user: two
+  department: two

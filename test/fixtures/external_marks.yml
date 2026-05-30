@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: one
+  external_exam: 1
+  final_total: 1.5
+  grade: MyString
+  gpa: 1.5
+  result: MyString
+
+two:
+  subject: two
+  external_exam: 1
+  final_total: 1.5
+  grade: MyString
+  gpa: 1.5
+  result: MyString

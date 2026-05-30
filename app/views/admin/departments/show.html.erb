@@ -1,0 +1,7 @@
+<h2>Department Details</h2>
+
+<p><strong>Name:</strong> <%= @department.name %></p>
+<p><strong>Code:</strong> <%= @department.code %></p>
+
+<%= link_to "Edit", edit_admin_department_path(@department) %> |
+<%= link_to "Back", admin_departments_path %>

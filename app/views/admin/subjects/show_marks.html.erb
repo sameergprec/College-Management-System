@@ -1,0 +1,568 @@
+<!-- ===================== MARKS REPORT ===================== -->
+
+<div class="container-fluid py-4 px-3 report-page">
+
+  <!-- HEADER -->
+  <div class="card border-0 shadow-sm rounded-4 mb-4">
+
+    <div class="card-body">
+
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+
+        <!-- LEFT -->
+        <div>
+
+          <h2 class="fw-bold text-dark mb-1">
+            📊 Student Marks Report
+          </h2>
+
+          <div class="d-flex flex-wrap gap-2 mt-2">
+
+            <span class="report-badge bg-primary text-white">
+              📘 <%= @subject.subject_name %>
+            </span>
+
+            <span class="report-badge bg-dark text-white">
+              🎓 Semester <%= @department_semester.semester_no %>
+            </span>
+
+            <span class="report-badge bg-success text-white">
+              👨‍🎓 <%= @marks.count %> Students
+            </span>
+
+          </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="d-flex flex-wrap gap-2 align-items-center">
+
+          <!-- SEARCH -->
+          <input type="text"
+                 id="studentSearch"
+                 class="form-control search-box"
+                 placeholder="🔍 Search Student">
+
+          <!-- SECTION FILTER -->
+          <select id="sectionFilter"
+                  class="form-select filter-box">
+
+            <option value="ALL">
+              All Sections
+            </option>
+
+            <% sections = @marks.map { |m| m.student.section.to_s.upcase }.uniq.sort rescue ["A"] %>
+
+            <% sections.each do |section| %>
+
+              <option value="<%= section %>">
+                Section <%= section %>
+              </option>
+
+            <% end %>
+
+          </select>
+
+          <!-- RESULT FILTER -->
+          <select id="resultFilter"
+                  class="form-select filter-box">
+
+            <option value="ALL">
+              All Results
+            </option>
+
+            <option value="PASS">
+              PASS
+            </option>
+
+            <option value="FAIL">
+              FAIL
+            </option>
+
+          </select>
+
+          <!-- BUTTONS -->
+          <button type="button"
+                  class="btn btn-primary rounded-pill px-4 fw-semibold"
+                  id="showInternalBtn">
+
+            Internal
+
+          </button>
+
+          <button type="button"
+                  class="btn btn-outline-success rounded-pill px-4 fw-semibold"
+                  id="showFinalBtn">
+
+            Final
+
+          </button>
+
+          <button type="button"
+                  class="btn btn-outline-dark rounded-pill px-4 fw-semibold"
+                  id="showAllBtn">
+
+            All
+
+          </button>
+
+          <!-- BACK -->
+          <%= link_to admin_department_department_semester_subjects_path(
+                @department,
+                @department_semester
+              ),
+              class: "btn btn-outline-secondary rounded-pill px-4 fw-semibold" do %>
+
+            ⬅ Back
+
+          <% end %>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+    <div class="table-responsive">
+
+      <table class="table align-middle text-center mb-0 report-table">
+
+        <!-- TABLE HEAD -->
+        <thead>
+
+          <tr class="main-head">
+
+            <th rowspan="2">
+              Student
+            </th>
+
+            <!-- INTERNAL -->
+            <th colspan="4" class="internal-col">
+              Internal 1
+            </th>
+
+            <th class="internal-col">
+              I1 Total (30)
+            </th>
+
+            <th colspan="4" class="internal-col">
+              Internal 2
+            </th>
+
+            <th class="internal-col">
+              I2 Total (30)
+            </th>
+
+            <!-- FINAL -->
+            <th rowspan="2" class="final-col d-none">
+              Final Internal (30)
+            </th>
+
+            <th rowspan="2" class="final-col d-none">
+              External
+            </th>
+
+            <th rowspan="2" class="final-col d-none">
+              Final Total
+            </th>
+
+            <th rowspan="2" class="final-col d-none">
+              Grade
+            </th>
+
+            <th rowspan="2" class="final-col d-none">
+              GPA
+            </th>
+
+            <th rowspan="2" class="final-col d-none">
+              Result
+            </th>
+
+          </tr>
+
+          <tr class="sub-head internal-col">
+
+            <!-- I1 -->
+            <th>A</th>
+            <th>S</th>
+            <th>E</th>
+            <th>C</th>
+            <th>Total</th>
+
+            <!-- I2 -->
+            <th>A</th>
+            <th>S</th>
+            <th>E</th>
+            <th>C</th>
+            <th>Total</th>
+
+          </tr>
+
+        </thead>
+
+        <!-- TABLE BODY -->
+        <tbody>
+
+          <% @marks.each do |mark| %>
+
+            <tr class="student-row"
+                data-result="<%= mark.result %>"
+                data-section="<%= mark.student.section.to_s.upcase rescue 'A' %>">
+
+              <!-- STUDENT -->
+              <td class="text-start">
+
+                <div class="d-flex align-items-center gap-3 ps-2">
+
+                  <div class="student-avatar">
+                    <%= mark.student.name.first.upcase rescue "S" %>
+                  </div>
+
+                  <div>
+
+                    <div class="fw-semibold">
+                      <%= mark.student.name %>
+                    </div>
+
+                    <small class="text-muted">
+
+                      Roll :
+                      <%= mark.student.roll_no rescue "-" %>
+
+                      •
+
+                      <span class="fw-bold text-primary">
+                        Section <%= mark.student.section rescue "A" %>
+                      </span>
+
+                    </small>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+              <!-- INTERNAL 1 -->
+              <td class="internal-col">
+                <%= mark.i1_assignment %>
+              </td>
+
+              <td class="internal-col">
+                <%= mark.i1_assessment %>
+              </td>
+
+              <td class="internal-col">
+                <%= mark.i1_ethics %>
+              </td>
+
+              <td class="internal-col">
+                <%= mark.i1_classwork %>
+              </td>
+
+              <td class="internal-col fw-bold text-primary">
+                <%= mark.i1_total %>
+              </td>
+
+              <!-- INTERNAL 2 -->
+              <td class="internal-col">
+                <%= mark.i2_assignment %>
+              </td>
+
+              <td class="internal-col">
+                <%= mark.i2_assessment %>
+              </td>
+
+              <td class="internal-col">
+                <%= mark.i2_ethics %>
+              </td>
+
+              <td class="internal-col">
+                <%= mark.i2_classwork %>
+              </td>
+
+              <td class="internal-col fw-bold text-success">
+                <%= mark.i2_total %>
+              </td>
+
+              <!-- FINAL -->
+              <td class="final-col d-none fw-bold text-primary">
+                <%= mark.final_internal || 0 %>
+              </td>
+
+              <td class="final-col d-none fw-bold
+                  <%= mark.external_exam.to_f >= 28 ?
+                      'text-success' :
+                      'text-danger' %>">
+                  <%= mark.external_exam || 0 %>
+
+              </td>
+
+              <td class="final-col d-none fw-bold text-dark">
+                <%= mark.final_total.present? ?
+                      ((mark.final_total % 1) >= 0.75 ? mark.final_total.ceil : mark.final_total.floor)
+                      : 0 %>
+              </td>
+
+              <td class="final-col d-none">
+
+                <span class="badge bg-primary rounded-pill px-3 py-2">
+                  <%= mark.grade || "-" %>
+                </span>
+
+              </td>
+
+              <td class="final-col d-none fw-semibold">
+                <%= mark.gpa || 0 %>
+              </td>
+
+              <td class="final-col d-none">
+
+                <% if mark.result == "PASS" %>
+
+                  <span class="badge bg-success rounded-pill px-3 py-2">
+                    PASS
+                  </span>
+
+                <% elsif mark.result == "FAIL" %>
+
+                  <span class="badge bg-danger rounded-pill px-3 py-2">
+                    FAIL
+                  </span>
+
+                <% else %>
+
+                  <span class="badge bg-secondary rounded-pill px-3 py-2">
+                    -
+                  </span>
+
+                <% end %>
+
+              </td>
+
+            </tr>
+
+          <% end %>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ===================== STYLE ===================== -->
+
+<style>
+
+body{
+  background:#f5f7fb;
+}
+
+.report-page{
+  padding-top:10px;
+}
+
+.report-badge{
+  padding:8px 16px;
+  border-radius:50px;
+  font-size:13px;
+  font-weight:600;
+}
+
+.search-box{
+  width:220px;
+  border-radius:50px;
+  height:42px;
+}
+
+.filter-box{
+  width:160px;
+  border-radius:50px;
+  height:42px;
+}
+
+.report-table th,
+.report-table td{
+  vertical-align:middle;
+  white-space:nowrap;
+  font-size:13px;
+}
+
+.main-head{
+  background:linear-gradient(90deg,#0d6efd,#3b82f6);
+  color:white;
+}
+
+.sub-head{
+  background:#eef4ff;
+}
+
+.report-table tbody tr:hover{
+  background:#f8fbff;
+}
+
+.student-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#0d6efd,#5b8cff);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  flex-shrink:0;
+}
+
+@media(max-width:768px){
+
+  .search-box{
+    width:160px;
+  }
+
+  .filter-box{
+    width:130px;
+  }
+
+  .report-table th,
+  .report-table td{
+    font-size:11px;
+  }
+
+}
+
+</style>
+
+<!-- ===================== SCRIPT ===================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  // FILTERS
+  const searchInput =
+    document.getElementById("studentSearch");
+
+  const resultFilter =
+    document.getElementById("resultFilter");
+
+  const sectionFilter =
+    document.getElementById("sectionFilter");
+
+  function filterStudents(){
+
+    const searchValue =
+      searchInput.value.toLowerCase();
+
+    const resultValue =
+      resultFilter.value;
+
+    const sectionValue =
+      sectionFilter.value;
+
+    document.querySelectorAll(".student-row").forEach(function(row){
+
+      const rowText =
+        row.innerText.toLowerCase();
+
+      const rowResult =
+        row.dataset.result;
+
+      const rowSection =
+        row.dataset.section;
+
+      const matchesSearch =
+        rowText.includes(searchValue);
+
+      const matchesResult =
+        resultValue === "ALL" ||
+        rowResult === resultValue;
+
+      const matchesSection =
+        sectionValue === "ALL" ||
+        rowSection === sectionValue;
+
+      row.style.display =
+        matchesSearch &&
+        matchesResult &&
+        matchesSection
+        ? ""
+        : "none";
+
+    });
+
+  }
+
+  searchInput.addEventListener("keyup", filterStudents);
+  resultFilter.addEventListener("change", filterStudents);
+  sectionFilter.addEventListener("change", filterStudents);
+
+  // BUTTONS
+  const internalBtn =
+    document.getElementById("showInternalBtn");
+
+  const finalBtn =
+    document.getElementById("showFinalBtn");
+
+  const allBtn =
+    document.getElementById("showAllBtn");
+
+  function hideColumns(){
+
+    document.querySelectorAll(".internal-col").forEach(col=>{
+      col.classList.add("d-none");
+    });
+
+    document.querySelectorAll(".final-col").forEach(col=>{
+      col.classList.add("d-none");
+    });
+
+  }
+
+  // INTERNAL
+  internalBtn.addEventListener("click", function(){
+
+    hideColumns();
+
+    document.querySelectorAll(".internal-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+  });
+
+  // FINAL
+  finalBtn.addEventListener("click", function(){
+
+    hideColumns();
+
+    document.querySelectorAll(".final-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+  });
+
+  // ALL
+  allBtn.addEventListener("click", function(){
+
+    document.querySelectorAll(".internal-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+    document.querySelectorAll(".final-col").forEach(col=>{
+      col.classList.remove("d-none");
+    });
+
+  });
+
+});
+
+</script>

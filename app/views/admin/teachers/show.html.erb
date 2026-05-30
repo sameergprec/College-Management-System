@@ -1,0 +1,10 @@
+<h2>Teacher Details</h2>
+
+<p><strong>ID Number:</strong> <%= @teacher.id_number %></p>
+<p><strong>Name:</strong> <%= @teacher.name %></p>
+<p><strong>Date of Joining:</strong> <%= @teacher.doj %></p>
+<p><strong>Department:</strong> <%= @teacher.department&.name %></p>
+<p><strong>Qualifications:</strong> <%= @teacher.qualifications %></p>
+<p><strong>Specialization:</strong> <%= @teacher.specialization %></p>
+
+<%= link_to "Back", admin_teachers_path %>

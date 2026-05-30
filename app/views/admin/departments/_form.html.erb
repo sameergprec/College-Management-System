@@ -1,0 +1,10 @@
+<!-- app/views/admin/departments/_form.html.erb -->
+<%= form_with(model: [:admin, @department]) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :code %>
+  <%= f.text_field :code %>
+
+  <%= f.submit %>
+<% end %>

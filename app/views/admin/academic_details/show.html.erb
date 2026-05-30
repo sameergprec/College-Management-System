@@ -1,0 +1,14 @@
+<h2>Academic Record Details</h2>
+<p><strong>Student:</strong> <%= @academic_detail.student.name if @academic_detail.student %></p>
+<p><strong>I Sem:</strong> <%= @academic_detail.i_sem %></p>
+<p><strong>II Sem:</strong> <%= @academic_detail.ii_sem %></p>
+<p><strong>III Sem:</strong> <%= @academic_detail.iii_sem %></p>
+<p><strong>IV Sem:</strong> <%= @academic_detail.iv_sem %></p>
+<p><strong>V Sem:</strong> <%= @academic_detail.v_sem %></p>
+<p><strong>VI Sem:</strong> <%= @academic_detail.vi_sem %></p>
+<p><strong>VII Sem:</strong> <%= @academic_detail.vii_sem %></p>
+<p><strong>VIII Sem:</strong> <%= @academic_detail.viii_sem %></p>
+<p><strong>CGPA:</strong> <%= @academic_detail.cgpa %></p>
+
+
+<%= link_to "Back", admin_academic_details_path %>

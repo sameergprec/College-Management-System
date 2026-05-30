@@ -1,0 +1,188 @@
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+
+    <div>
+      <h4 class="fw-bold text-primary mb-1">📚 Subjects</h4>
+      <p class="text-muted mb-0">
+        Semester <%= @department_semester.semester_no %>
+      </p>
+    </div>
+
+    <%= link_to "➕ Add Subject",
+        new_admin_department_department_semester_subject_path(
+          @department,
+          @department_semester
+        ),
+        class: "btn btn-primary rounded-pill px-4 shadow-sm fw-semibold" %>
+
+  </div>
+
+  <!-- TABLE CARD -->
+  <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+    <div class="card-body p-0">
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
+
+          <!-- HEADER -->
+          <thead class="text-white"
+                 style="background: linear-gradient(90deg, #0d6efd, #6610f2);">
+
+            <tr>
+              <th class="py-3 ps-4">Code</th>
+              <th class="py-3">Subject Name</th>
+              <th class="py-3">Credits</th>
+              <th class="py-3">Type</th>
+              <th class="py-3 text-center">Actions</th>
+            </tr>
+
+          </thead>
+
+          <!-- BODY -->
+          <tbody>
+
+            <% @subjects.each do |subject| %>
+
+              <tr>
+
+                <td class="ps-4 fw-semibold">
+                  <%= subject.subject_code %>
+                </td>
+
+                <td class="fw-semibold">
+                  <%= subject.subject_name %>
+                </td>
+
+                <td>
+                  <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
+                    <%= subject.credits %> Credits
+                  </span>
+                </td>
+
+                <td>
+                  <span class="badge bg-warning-subtle text-dark px-3 py-2 rounded-pill">
+                    <%= subject.subject_type %>
+                  </span>
+                </td>
+
+                <!-- ACTIONS -->
+                <td class="text-center">
+
+                  <div class="d-flex justify-content-center align-items-center gap-2 flex-wrap">
+
+                    <!-- ENTER MARKS -->
+                    <%= link_to "📝 Enter",
+                        mark_entry_admin_department_department_semester_subject_path(
+                          @department,
+                          @department_semester,
+                          subject
+                        ),
+                        class: "btn btn-primary btn-sm rounded-pill px-3 shadow-sm" %>
+
+                    <!-- DISPLAY MARKS -->
+                    <%= link_to "📊 Display",
+                        show_marks_admin_department_department_semester_subject_path(
+                          @department,
+                          @department_semester,
+                          subject
+                        ),
+                        class: "btn btn-outline-info btn-sm rounded-pill px-3 shadow-sm" %>
+
+                    <!-- EDIT -->
+                    <%= link_to edit_admin_department_department_semester_subject_path(
+                          @department,
+                          @department_semester,
+                          subject
+                        ),
+                        class: "action-icon edit",
+                        title: "Edit Subject" do %>
+                      ✏️
+                    <% end %>
+
+                    <!-- DELETE -->
+                    <%= button_to admin_department_department_semester_subject_path(
+                          @department,
+                          @department_semester,
+                          subject
+                        ),
+                        method: :delete,
+                        data: { turbo_confirm: "Are you sure you want to delete this subject?" },
+                        class: "icon-form" do %>
+
+                      <span class="action-icon delete" title="Delete Subject">🗑️</span>
+
+                    <% end %>
+
+                  </div>
+
+                </td>
+
+              </tr>
+
+            <% end %>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- STYLES -->
+<style>
+
+.action-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 15px;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+/* EDIT */
+.action-icon.edit {
+  color: #f59e0b;
+}
+
+.action-icon.edit:hover {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  transform: translateY(-2px);
+}
+
+/* DELETE */
+.action-icon.delete {
+  color: #ef4444;
+}
+
+.action-icon.delete:hover {
+  background: #fee2e2;
+  border-color: #ef4444;
+  transform: translateY(-2px);
+}
+
+/* FIX button_to wrapper */
+.icon-form {
+  display: inline-flex;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+}
+
+</style>

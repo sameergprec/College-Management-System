@@ -1,0 +1,57 @@
+<div class="container mt-4">
+
+  <h2 class="fw-bold mb-4">
+    Add Subject
+  </h2>
+
+  <%= form_with model: [
+    :admin,
+    @department,
+    @department_semester,
+    @subject
+  ] do |f| %>
+
+    <div class="mb-3">
+
+      <%= f.label :subject_code %>
+
+      <%= f.text_field :subject_code,
+          class: "form-control" %>
+
+    </div>
+
+    <div class="mb-3">
+
+      <%= f.label :subject_name %>
+
+      <%= f.text_field :subject_name,
+          class: "form-control" %>
+
+    </div>
+
+    <div class="mb-3">
+
+      <%= f.label :credits %>
+
+      <%= f.number_field :credits,
+          class: "form-control" %>
+
+    </div>
+
+    <div class="mb-3">
+
+      <%= f.label :subject_type %>
+
+      <%= f.select :subject_type,
+          ["Theory", "Lab"],
+          {},
+          class: "form-select" %>
+
+    </div>
+
+    <%= f.submit "Create Subject",
+        class: "btn btn-dark rounded-pill px-4" %>
+
+  <% end %>
+
+</div>

@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  subject: one
+  \i1_assignment: 1
+  \i1_assessment: 1
+  \i1_ethics: 1
+  \i1_classwork: 1
+  \i1_total: 1.5
+  \i2_assignment: 1
+  \i2_assessment: 1
+  \i2_ethics: 1
+  \i2_classwork: 1
+  \i2_total: 1.5
+  \best_internal: 1.5
+  \least_internal: 1.5
+  \final_internal: 1.5
+
+two:
+  subject: two
+  \i1_assignment: 1
+  \i1_assessment: 1
+  \i1_ethics: 1
+  \i1_classwork: 1
+  \i1_total: 1.5
+  \i2_assignment: 1
+  \i2_assessment: 1
+  \i2_ethics: 1
+  \i2_classwork: 1
+  \i2_total: 1.5
+  \best_internal: 1.5
+  \least_internal: 1.5
+  \final_internal: 1.5

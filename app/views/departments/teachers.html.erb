@@ -1,0 +1,20 @@
+<h2>Teachers in <%= current_user.department.name %> Department</h2>
+
+<table class="table table-bordered table-striped mt-3">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Specialization</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+        <td><%= teacher.name %></td>
+        <td><%= teacher.user.email %></td>
+        <td><%= teacher.specialization %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
