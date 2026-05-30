@@ -10,7 +10,7 @@ gem "sqlite3", ">= 2.1"
 gem "tzinfo-data"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+# gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
@@ -70,3 +70,7 @@ gem "image_processing", "~> 1.2"
 gem "mini_magick"
 
 gem "faker"
+
+group :production do
+  gem "puma"
+end
