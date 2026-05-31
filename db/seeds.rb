@@ -8045,7 +8045,7 @@
   model.delete_all
 end
 
-DEFAULT_PASSWORD = "password123"
+DEFAULT_PASSWORD = "121212"
 
 # -----------------------------
 # Departments
@@ -8149,14 +8149,7 @@ base_subjects = [
 
 subjects_by_department = Hash.new { |hash, key| hash[key] = [] }
 
-# One common subject retained from original style where department_semester_id can be nil.
-Subject.create!(
-  subject_code: "CS101",
-  subject_name: "DBMS",
-  credits: 4,
-  subject_type: "Theory",
-  department_semester_id: nil
-)
+# Removed the old DBMS subject with department_semester_id: nil because Subject belongs_to :department_semester.
 
 departments.each do |code, _department|
   base_subjects.each_with_index do |(number, name, credits, type), index|
